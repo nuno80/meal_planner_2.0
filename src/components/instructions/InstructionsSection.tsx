@@ -1,6 +1,6 @@
 "use client"; // Added "use client"
-import React, { useState } from 'react';
 import { CheckSquare, Square } from 'lucide-react';
+import React, { useState } from 'react';
 import { InstructionsData, InstructionStep } from './instructions.types';
 
 interface InstructionsSectionProps {
@@ -27,24 +27,26 @@ export const InstructionsSection: React.FC<InstructionsSectionProps> = ({ data }
         {steps.map(step => (
           <li key={step.id} className="flex items-start space-x-4">
             <div className="flex-shrink-0 flex flex-col items-center">
-              <span className={\`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${step.isCompleted ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-700'}\`}>
+              {/* CORREZIONE: Rimosso backslash */}
+              <span className={`flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold ${step.isCompleted ? 'bg-pink-600 text-white' : 'bg-gray-200 text-gray-700'}`}>
                 {step.stepNumber}
               </span>
             </div>
             <div className="flex-grow">
-              <p className={\`text-sm text-gray-700 ${step.isCompleted ? 'line-through text-gray-500' : ''}\`}>
+              {/* CORREZIONE: Rimosso backslash */}
+              <p className={`text-sm text-gray-700 ${step.isCompleted ? 'line-through text-gray-500' : ''}`}>
                 {step.description}
               </p>
               {step.imageUrl && (
                 <img
                   src={step.imageUrl}
-                  alt={step.imageAlt || \`Instruction step ${step.stepNumber}\`}
+                  // CORREZIONE: Rimosso backslash
+                  alt={step.imageAlt || `Instruction step ${step.stepNumber}`}
                   className="mt-3 rounded-lg shadow-sm w-full max-w-md object-cover aspect-video"
                   onError={(e) => {
                     const target = e.target as HTMLImageElement;
                     target.onerror = null; // Prevent infinite loop if placeholder also fails
                     target.src = "https://placehold.co/600x400/cccccc/ffffff?text=Image+Error&font=lora";
-                    // Removed: target.style.display = 'none';
                   }}
                 />
               )}
@@ -53,7 +55,8 @@ export const InstructionsSection: React.FC<InstructionsSectionProps> = ({ data }
               onClick={() => handleStepToggle(step.id)}
               className="p-1 focus:outline-none focus:ring-2 focus:ring-pink-500 rounded self-start"
               aria-pressed={step.isCompleted}
-              aria-label={\`Mark step ${step.stepNumber} as ${step.isCompleted ? 'incomplete' : 'complete'}\`}
+              // CORREZIONE: Rimosso backslash
+              aria-label={`Mark step ${step.stepNumber} as ${step.isCompleted ? 'incomplete' : 'complete'}`}
             >
               {step.isCompleted ? (
                 <CheckSquare size={20} className="text-pink-600" />

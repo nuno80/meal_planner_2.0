@@ -94,7 +94,7 @@ git commit -m "Initial commit"
 
 #Collega il repository remoto e fai il push:
 
-git remote add origin https://github.com/nuno80/next-start-nuno.git
+git remote add origin https://github.com/nuno80/meal_planner_2.0.git
 //serve solo per il primo collegamento a github
 
 git branch -M main

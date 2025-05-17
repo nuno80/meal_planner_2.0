@@ -1,8 +1,8 @@
 "use client";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import React, { useState } from 'react';
-import { ChevronRight, ChevronLeft } from 'lucide-react';
-import { RecipeCardData } from '../recipeCard/recipeCard.types';
 import { RecipeCard } from '../recipeCard/RecipeCard';
+import { RecipeCardData } from '../recipeCard/recipeCard.types';
 
 interface RelatedRecipesSectionProps {
   recipes: RecipeCardData[];
@@ -59,10 +59,12 @@ export const RelatedRecipesSection: React.FC<RelatedRecipesSectionProps> = ({
         <div className="overflow-hidden relative">
           <div
             className="flex transition-transform duration-500 ease-in-out"
-            style={{ transform: \`translateX(-${currentIndex * itemWidthPercentage}%)\` }}
+            // CORREZIONE: Rimosso backslash
+            style={{ transform: `translateX(-${currentIndex * itemWidthPercentage}%)` }}
           >
             {recipes.map(recipe => (
-              <div key={recipe.id} className="p-2" style={{ flex: \`0 0 ${itemWidthPercentage}%\` }}>
+              // CORREZIONE: Rimosso backslash
+              <div key={recipe.id} className="p-2" style={{ flex: `0 0 ${itemWidthPercentage}%` }}>
                 <RecipeCard recipe={recipe} variant="compact" />
               </div>
             ))}
@@ -72,8 +74,12 @@ export const RelatedRecipesSection: React.FC<RelatedRecipesSectionProps> = ({
         {recipes.length > recipesToShow && (
           <div className="mt-4 w-full bg-gray-200 rounded-full h-1.5">
             <div
-              className="bg-gray-500 h-1.5 rounded-full transition-all duration-300"
-              style={{ width: \`${recipes.length > recipesToShow ? ((currentIndex + recipesToShow) / recipes.length) * 100 : 0}%\` }}
+              className="bg-pink-600 h-1.5 rounded-full transition-all duration-300" // Modificato bg-gray-500 in bg-pink-600 per coerenza tema
+              // CORREZIONE: Rimosso backslash
+              style={{ 
+                width: `${recipes.length > 0 ? ((currentIndex + recipesToShow) / recipes.length) * 100 : 0}%`,
+                maxWidth: '100%' // Aggiunto per sicurezza, per non superare il 100%
+              }}
             ></div>
           </div>
         )}

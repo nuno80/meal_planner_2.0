@@ -1,7 +1,7 @@
 "use client"; // Added "use client" because of interactive buttons
-import React from 'react';
+import { Bookmark, Clock, Star } from 'lucide-react';
 import Link from 'next/link'; // Added import for Link
-import { Star, Clock, Bookmark } from 'lucide-react';
+import React from 'react';
 import { RecipeCardData } from './recipeCard.types';
 
 interface RecipeCardProps {
@@ -19,7 +19,7 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, variant = 'defau
           <img
             src={recipe.imageUrl}
             alt={recipe.imageAlt}
-            className={\`w-full object-cover ${isCompact ? 'h-40' : 'h-48 md:h-56'}\`}
+            className={`w-full object-cover ${isCompact ? 'h-40' : 'h-48 md:h-56'}`}
             onError={(e) => {
               const target = e.target as HTMLImageElement;
               target.onerror = null;
@@ -35,13 +35,13 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, variant = 'defau
           <button
             aria-label="Save recipe"
             className="absolute top-3 right-3 bg-black bg-opacity-40 p-2 rounded-full text-white hover:bg-opacity-60 focus:outline-none focus:ring-2 focus:ring-white"
-            onClick={(e) => { e.preventDefault(); alert(\`Recipe ${recipe.title} saved! (placeholder)\`); }}
+            onClick={(e) => { e.preventDefault(); alert(`Recipe ${recipe.title} saved! (placeholder)`); }}
           >
             <Bookmark size={18} />
           </button>
         </div>
         <div className="p-4 flex flex-col flex-grow">
-          <h3 className={\`font-bold group-hover:text-pink-600 transition-colors ${isCompact ? 'text-sm mb-1 truncate' : 'text-lg mb-2'}\`}>
+          <h3 className={`font-bold group-hover:text-pink-600 transition-colors ${isCompact ? 'text-sm mb-1 truncate' : 'text-lg mb-2'}`}>
             {recipe.title}
           </h3>
 
@@ -50,10 +50,10 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, variant = 'defau
               {recipe.tags.map((tag, index) => (
                 <span
                   key={index}
-                  className={\`px-2 py-0.5 text-xs font-medium rounded-full
+                  className={`px-2 py-0.5 text-xs font-medium rounded-full
                     ${tag.type === 'neutral' ? 'bg-gray-200 text-gray-700' :
                       tag.type === 'secondary' ? 'bg-blue-100 text-blue-700' :
-                        'bg-pink-100 text-pink-700'}\`}
+                        'bg-pink-100 text-pink-700'}`}
                 >
                   {tag.label}
                 </span>
@@ -61,24 +61,24 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, variant = 'defau
             </div>
           )}
 
-          <div className={\`flex items-center text-xs text-gray-500 ${isCompact ? 'mb-0' : 'mb-3'} space-x-2\`}>
+          <div className={`flex items-center text-xs text-gray-500 ${isCompact ? 'mb-0' : 'mb-3'} space-x-2`}>
             <div className="flex items-center">
               <Clock size={14} className="mr-1" />
               <span>{recipe.time}</span>
             </div>
             {!isCompact && (
               <>
-                <span>•</span>
-                <span className={\`capitalize px-1.5 py-0.5 rounded text-xs font-semibold
+                <span>•</span> {/* Usato carattere unicode per il punto */}
+                <span className={`capitalize px-1.5 py-0.5 rounded text-xs font-semibold
                     ${recipe.difficulty === 'Easy' ? 'bg-green-100 text-green-700' :
                       recipe.difficulty === 'Medium' ? 'bg-yellow-100 text-yellow-700' :
-                        'bg-red-100 text-red-700'}\`}
+                        'bg-red-100 text-red-700'}`}
                 >
                   {recipe.difficulty}
                 </span>
                 {recipe.calories && (
                   <>
-                    <span>•</span>
+                    <span>•</span> {/* Usato carattere unicode per il punto */}
                     <span>{recipe.calories}</span>
                   </>
                 )}
@@ -88,13 +88,15 @@ export const RecipeCard: React.FC<RecipeCardProps> = ({ recipe, variant = 'defau
 
           {!isCompact && (
             <div className="mt-auto pt-3 flex flex-col sm:flex-row gap-2">
-              <!-- This button now acts as part of the main Link -->
-              <button type="button" className="flex-1 px-4 py-2 bg-gray-800 text-white text-sm font-semibold rounded-md hover:bg-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-700">
+              {/* Questo elemento stilizzato come bottone fa parte dell'area cliccabile del Link e ne attiverà la navigazione */}
+              <span // Cambiato in span per semantica, ma stilizzato come bottone. Potrebbe anche rimanere button type="button"
+                className="flex-1 text-center px-4 py-2 bg-gray-800 text-white text-sm font-semibold rounded-md hover:bg-gray-900 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-700 cursor-pointer"
+              >
                 View Recipe
-              </button>
+              </span>
               <button
                 type="button"
-                onClick={(e) => { e.preventDefault(); alert(\`Recipe ${recipe.title} 'Add to Plan' clicked! (placeholder)\`); }}
+                onClick={(e) => { e.preventDefault(); alert(`Recipe ${recipe.title} 'Add to Plan' clicked! (placeholder)`); }}
                 className="flex-1 px-4 py-2 border border-gray-300 text-gray-700 text-sm font-semibold rounded-md hover:bg-gray-100 transition-colors focus:outline-none focus:ring-2 focus:ring-gray-300"
               >
                 Add to Plan
